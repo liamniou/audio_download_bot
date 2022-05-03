@@ -3,7 +3,7 @@ name: build_and_publish_docker_image
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   DOCKER_IMAGE: liamnou/audio_download_bot_amd64
