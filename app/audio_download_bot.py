@@ -13,6 +13,7 @@ token = os.getenv("AUDIO_DL_BOT_TOKEN")
 AUTHORIZED_USERS = [294967926, 191151492]
 MUSIC_DIR = "/Music"
 MUSIC_DL_DIR = "/Music_dl"
+PLEX_REFRESH_ENDPOINT = os.getenv("PLEX_REFRESH_ENDPOINT")
 bot = telebot.TeleBot(token, threaded=False)
 
 
@@ -78,6 +79,12 @@ def download(message):
             text=True,
         )
         log.warning(import_result)
+        refresh_result = subprocess.run(
+            ["curl", PLEX_REFRESH_ENDPOINT],
+            capture_output=True,
+            text=True,
+        )
+        log.warning(refresh_result)
         send_message(instantiate_message(message, f"Download completed"))
     except:
         send_message(instantiate_message(message, f"Download failed"))
